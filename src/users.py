@@ -17,9 +17,6 @@ def createUser(name):
     #Create user
     else:
         query = db['Users'].insert({'username': name})
-#        query = db['Users'].find({'username': name}, {'_id': 1})[0]
-        print("############")
-        print(query)
         if not query:
             raise ValueError("User not inserted")
         return {"user_id":str(query)}
