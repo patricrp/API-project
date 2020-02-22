@@ -21,11 +21,6 @@ def createUser(name):
             raise ValueError("User not inserted")
         return {"user_id":str(query)}
 
-@jsonErrorHandler
-def checkUser(name):
-    #Check if user exists
-    if db['Users'].count_documents({ 'username': name }, limit = 1) != 0:
-        query = db['Users'].find_one({'username': name})
-        return dumps(query)
-    else:
-        return 'Try to create the user'
+
+
+

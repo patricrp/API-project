@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+from bson.objectid import ObjectId
 from bson.json_util import dumps
 from errorHandler import jsonErrorHandler
 
@@ -8,26 +9,38 @@ db = client.get_database()
 
 
 @jsonErrorHandler
-def createConversation(*args):
-    query = db['Conversations'].insert_one(
+def createConversation(chatname):
+    if db['Conversations'].count_documents({ 'Group': chatname }, limit = 1) != 0:
+        return 'Chat already exists'
+    else:
+        query = db['Conversations'].insert(
         {
-            'Characters': [args]
+            'Group': chatname,
+            'Characters': [],
+            'Message': []
         }
 
-    )
-    return dumbs(query)
-
-    '''
+        )
+        return {"Group":str(chatname)}
 
 
+@jsonErrorHandler
+def createConversations(chatname, character, message):
+    query = list(db['Conversations'].insert_one(
+    {
+        'Group': chatname,
+        'Characters': character,
+        'Message': message
+    }
 
-    for index, value in df.iterrows():
-         query = db['Conversations'].insert({
-            'Character': args,
-            'Message': content,
-            'Chat': casa
-            'user_i': db['Users'].find({'name':name}, {'_id':1})
-        }
-         )
+    ))
+    return query
 
-'''
+@jsonErrorHandler  
+def addMessage(chatname, username, message):
+    if db['Conversations'].count_documents({'Group':chatname}, limit = 1) != 0:
+        i = list(db['Conversations'].find({'Group':chatname}, {'_id':1}))[0]['_id']
+        query = list(db['Conversations'].update({"_id":i},{"$push":{"Message": {'username': username, 'message': message}}}))
+        return 'Great. Included'
+    else:
+        raise ValueError("Dialogue not added")
