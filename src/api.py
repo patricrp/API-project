@@ -22,6 +22,7 @@ def addMessage(chatname, username, message):
 
 
 @app.route('/chat/adduser/<username>', methods=['GET'])
-def addUser():
-    return users.addUser(name)
+def addUser(username):
+    return users.addUser(username)
+    
 app.run("0.0.0.0", 8800, debug=True)

@@ -23,14 +23,14 @@ def createUser(name):
 
 
 @jsonErrorHandler
-def addUser(name):
+def addUser(username):
     #Look for user's group:
-    grupo = list(df_reduced['Groups'][df_reduced['Characters'] == user])[0]
+    grupo = list(df_reduced['Groups'][df_reduced['Characters'] == username])[0]
     #Look for user's id
-    i = list(db['Users'].find({'username': user}, {'_id':1}))[0]['_id']
+    i = list(db['Users'].find({'username': username}, {'_id':1}))[0]['_id']
     #Look for group's id
     ig = list(db['Conversations'].find({'Group':grupo}, {'_id':1}))[0]['_id']
-    query = list(db['Conversations'].update({"_id":ig}, {'$push': {'Characters': {'username': user, '_id':i}}}))
+    query = list(db['Conversations'].update({"_id":ig}, {'$push': {'Characters': {'username': username, '_id':i}}}))
     return 'User added to the chat'
 
 

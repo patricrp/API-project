@@ -24,18 +24,6 @@ def createConversation(chatname):
         return {"Group":str(chatname)}
 
 
-@jsonErrorHandler
-def createConversations(chatname, character, message):
-    query = list(db['Conversations'].insert_one(
-    {
-        'Group': chatname,
-        'Characters': character,
-        'Message': message
-    }
-
-    ))
-    return query
-
 @jsonErrorHandler  
 def addMessage(chatname, username, message):
     if db['Conversations'].count_documents({'Group':chatname}, limit = 1) != 0:
