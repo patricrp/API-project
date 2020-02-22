@@ -16,13 +16,12 @@ def createChat(chatname):
     return conversations.createConversation(chatname)
 
 
-@app.route('/chat/create/<chatname>/<character>/<message>', methods=['GET']) 
-def createConversations(chatname, character, message):
-    return conversations.createConversations(chatname, character, message)
-
 @app.route('/chat/<chatname>/<username>/<message>', methods=['GET'])
 def addMessage(chatname, username, message):
     return conversations.addMessage(chatname, username, message)
 
 
+@app.route('/chat/adduser/<username>', methods=['GET'])
+def addUser():
+    return users.addUser(name)
 app.run("0.0.0.0", 8800, debug=True)
