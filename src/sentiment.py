@@ -16,12 +16,14 @@ def sentimentText(chatname):
     return sia.polarity_scores(text)
 
 def sentimentCharacter(username):
-    #Character sentiment
     sia = SentimentIntensityAnalyzer()
-    conversation = list(db['Conversations'].find({}))[0]['Message']
-    characConv = []
-    for dic in conversation:
-        if dic['username'] == username:
-            characConv.append(dic['message'])
-    phrases = ''.join(str(word) for word in characConv)
+    #Character sentiment
+    conversation = list(db['Conversations'].find({}))
+    for dialogue in conversation:
+        dia = dialogue['Message']
+        characConv = []
+        for dic in dia:
+            if dic['username'] == username:
+                characConv.append(dic['message'])
+        phrases = ''.join(str(word) for word in characConv)
     return sia.polarity_scores(phrases)
