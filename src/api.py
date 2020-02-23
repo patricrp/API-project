@@ -3,6 +3,7 @@ from flask import Flask, request
 import users
 import conversations
 import sentiment
+import recommend
 
 app = Flask(__name__)
     
@@ -43,5 +44,8 @@ def sentimentChat(chatname):
 def sentimentCharacter(username):
     return sentiment.sentimentCharacter(username)
 
+@app.route('/user/<username>/recommend', methods=['GET'])
+def recommendCharacter(username):
+    return recommend.recommendCharacter(username)
     
 app.run("0.0.0.0", 8800, debug=True)
