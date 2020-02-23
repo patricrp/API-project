@@ -1,15 +1,15 @@
 from textblob import TextBlob
 from errorHandler import jsonErrorHandler
-import conversations
+from conversations import getListChat
 import nltk
 nltk.download('vader_lexicon')
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 def sentimentText(chatname):
-    text = conversations.getListChat(chatname)
+    text = getListChat(chatname)
     sia = SentimentIntensityAnalyzer()
     #Needs to be a string of phrases
-    if type(text) != str():
+    if type(text) != str:
         raise ValueError("Text needs to be a string") 
     else:
         return sia.polarity_scores(text)
