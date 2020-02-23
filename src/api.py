@@ -39,4 +39,7 @@ def getListChat(chatname):
 def sentimentChat(chatname):
     return sentiment.sentimentText(chatname)
 
+@app.route('/chat/<username>/sentiment', methods=['GET'])
+def sentimentCharacter(username):
+    return sentiment.sentimentCharacter(username)
 app.run("0.0.0.0", 8800, debug=True)

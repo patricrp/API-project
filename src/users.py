@@ -25,7 +25,7 @@ def createUser(name, group):
 @jsonErrorHandler
 def addUser(username):
     #Look for user an group ids and add to the conversation
-    i = list(list(db['Users'].find({'username': 'Lisa Simpson'}, {'_id':1, 'Group':1}))[0].values())
+    i = list(list(db['Users'].find({'username': username}, {'_id':1, 'Group':1}))[0].values())
     ig = list(db['Conversations'].find({'Group':i[1]}, {'_id':1}))[0]['_id']
     query = list(db['Conversations'].update({"_id":ig}, {'$push': {'Characters': {'username': username, '_id':i[0]}}}))
     return 'User added to the chat'
