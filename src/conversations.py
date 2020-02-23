@@ -32,3 +32,21 @@ def addMessage(chatname, username, message):
         return 'Great. Included'
     else:
         raise ValueError("Dialogue not added")
+
+@jsonErrorHandler 
+def getChat(chatname):
+    # Get a json array of users and messages
+    query = list(db['Conversations'].find({'Group':chatname}))[0]['Message']
+    return dumps(query)
+
+
+@jsonErrorHandler 
+def getListChat(chatname):
+    query = list(db['Conversations'].find({'Group':chatname}))[0]['Message']
+    conversation = []
+    for q in query:
+        conversation.append(q)
+    messages = []
+    for message in conversation:
+        messages.append(message['message'])
+    return dumps(messages)

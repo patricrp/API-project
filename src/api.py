@@ -25,4 +25,13 @@ def addMessage(chatname, username, message):
 def addUser(username):
     return users.addUser(username)
 
+
+@app.route('/chat/<chatname>/list', methods=['GET'])
+def getChat(chatname):
+    return conversations.getChat(chatname)
+
+@app.route('/chat/<chatname>/userlist', methods=['GET'])
+def getListChat(chatname):
+    return conversations.getListChat(chatname)
+
 app.run("0.0.0.0", 8800, debug=True)
