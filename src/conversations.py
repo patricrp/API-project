@@ -42,6 +42,7 @@ def getChat(chatname):
 
 @jsonErrorHandler 
 def getListChat(chatname):
+    # Get an array of messages
     query = list(db['Conversations'].find({'Group':chatname}))[0]['Message']
     conversation = []
     for q in query:

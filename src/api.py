@@ -2,6 +2,7 @@
 from flask import Flask, request
 import users
 import conversations
+import sentiment
 
 app = Flask(__name__)
     
@@ -33,5 +34,9 @@ def getChat(chatname):
 @app.route('/chat/<chatname>/userlist', methods=['GET'])
 def getListChat(chatname):
     return conversations.getListChat(chatname)
+
+@app.route('/chat/<chatname>/sentiment', methods=['GET'])
+def sentimentChat(chatname):
+    return sentiment.sentimentText(chatname)
 
 app.run("0.0.0.0", 8800, debug=True)
