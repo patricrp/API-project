@@ -4,6 +4,7 @@ import users
 import conversations
 import sentiment
 import recommend
+import os
 
 app = Flask(__name__)
     
@@ -48,4 +49,4 @@ def sentimentCharacter(username):
 def recommendCharacter(username):
     return recommend.recommendCharacter(username)
 
-app.run("0.0.0.0", 8800, debug=True)
+app.run("0.0.0.0", os.getenv("PORT"), debug=True)
