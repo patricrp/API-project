@@ -26,12 +26,17 @@ def createConversation(chatname):
 
 @jsonErrorHandler  
 def addMessage(chatname, username, message):
+    users = list(db['Conversations'].distinct('Characters'))
     if db['Conversations'].count_documents({'Group':chatname}, limit = 1) != 0:
-        i = list(db['Conversations'].find({'Group':chatname}, {'_id':1}))[0]['_id']
-        query = list(db['Conversations'].update({"_id":i},{"$push":{"Message": {'username': username, 'message': message}}}))
-        return 'Great. Included'
+        for user in users:
+            if username == user['username']:
+                i = list(db['Conversations'].find({'Group':chatname}, {'_id':1}))[0]['_id']
+                query = list(db['Conversations'].update({"_id":i},{"$push":{"Message": {'username': username, 'message': message}}}))
+                return 'Great. Included'
+            else:
+                ValueError("User not in the group")
     else:
-        raise ValueError("Dialogue not added")
+        ValueError("Dialogue not added")
 
 @jsonErrorHandler 
 def getChat(chatname):

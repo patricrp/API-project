@@ -36,16 +36,16 @@ def getChat(chatname):
 def getListChat(chatname):
     return conversations.getListChat(chatname)
 
-@app.route('/chat/<chatname>/sentiment', methods=['GET'])
+@app.route('/chat/<chatname>/sentimentgroup', methods=['GET'])
 def sentimentChat(chatname):
     return sentiment.sentimentText(chatname)
 
-@app.route('/chat/<username>/sentiment', methods=['GET'])
+@app.route('/chat/<username>/sentimentcharacter', methods=['GET'])
 def sentimentCharacter(username):
     return sentiment.sentimentCharacter(username)
 
 @app.route('/user/<username>/recommend', methods=['GET'])
 def recommendCharacter(username):
     return recommend.recommendCharacter(username)
-    
+
 app.run("0.0.0.0", 8800, debug=True)
