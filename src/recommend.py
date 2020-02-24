@@ -5,7 +5,6 @@ from errorHandler import jsonErrorHandler
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity as distance
-import seaborn as sns
 
 client = MongoClient("mongodb://localhost/Conversations")
 db = client.get_database()
